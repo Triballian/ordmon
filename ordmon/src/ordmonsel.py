@@ -7,6 +7,7 @@ just place chromedriver.exe into the same directory as this app
 
 @author: Noe
 '''
+import re
 import pickle
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -65,17 +66,21 @@ if __name__ == '__main__':
 #    browserconf.loadcookies()
 #    browser.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 't')
     browser.get(url)
-    time.sleep(10)
+    print 'loding page'
+    print 'Login to C-Cex if you haven not logged in for awhile. Otherwise order page will load automatically'
+    time.sleep(5)
     browserconf.loadcookies()
     browser.get(url)
 #     browser.find_element(browser.by.LINK_TEXT(url)).sendKeys()
 #    browser.
-    print 'loding page'
+    
     time.sleep(5)
-    print 'Login to C-Cex'
-    time.sleep(60)
+    
+#    time.sleep(60)
     browserconf.savecookies()
     print 'saving cookies'
+    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
+    print orders
 #    browser.find_element_by_tag_name('h1')    
     
      
