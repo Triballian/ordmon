@@ -16,12 +16,13 @@ import cStringIO
 if __name__ == '__main__':
     cj = mechanize.MSIECookieJar()
 #     cj.load()
-#     cj.load('C:\\Users\\Noe\\AppData\\Roaming\\Microsoft\\Windows\\Cookies\\ECKENCD5.txt')
-    cj.load_cookie_data('C:\\Users\\Noe\\AppData\\Roaming\\Microsoft\\Windows\\Cookies\\ECKENCD5.txt')
+#    cj.load('C:\Users\Noe\AppData\Roaming\Microsoft\Windows\Cookies\Low\WMLL1AJE.txt')
+    cj.load_from_registry()
+#    cj.load_cookie_data('C:\\Users\\Noe\\AppData\\Roaming\\Microsoft\\Windows\\Cookies\\ECKENCD5.txt')
 #    Hang on to this as a clue
-    netscapeHeader= "# HTTP Cookie File\n# http://www.netscape.com/newsref/std/cookie_spec.html\n# This is a generated file!  Do not edit.\n\n"
+#     netscapeHeader= "# HTTP Cookie File\n# http://www.netscape.com/newsref/std/cookie_spec.html\n# This is a generated file!  Do not edit.\n\n"
 
-    s = cStringIO.StringIO(netscapeHeader)
+#     s = cStringIO.StringIO(netscapeHeader)
 #     cj.revert('C:\\Users\\Noe\\AppData\\Roaming\\Microsoft\\Windows\\Cookies\\ECKENCD5.txt')
     
 
