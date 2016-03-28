@@ -79,7 +79,8 @@ if __name__ == '__main__':
 #    time.sleep(60)
     browserconf.savecookies()
     print 'saving cookies'
-    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
+#    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
+    orders = browser.find_element_by_xpath('//tr[(@class = "hand")]').text
     print orders
 #    browser.find_element_by_tag_name('h1')    
     
