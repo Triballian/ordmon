@@ -22,10 +22,12 @@ class ordmonsel:
 
 # browser = webdriver.Chrome(executable_path=path_to_chromedriver)
     def setupbrowser(self):
-        path_to_chromedriver = 'chromedriver.exe'
+        
+#         The follwing line is not necessary if you expect chromedriver to be in the current directory
+#        path_to_chromedriver = 'chromedriver.exe'
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--test-type')
-        return webdriver.Chrome(executable_path=path_to_chromedriver, chrome_options=chrome_options)
+        return webdriver.Chrome(chrome_options=chrome_options)
     
     
     def loadcookies(self):
