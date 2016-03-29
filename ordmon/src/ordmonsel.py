@@ -44,7 +44,7 @@ class ordmonsel:
     def orders(self):
 #         pull using regular experssions
         regstring = re.compile(r'\d+.*[Buy|Sell]\s\d+\.?\d*\s\w*\s\d*\.?\d*\b')
-        neworders = re.findall(regstring, raworders )
+#         neworders = re.findall(regstring, raworders )
         
 #         create list of keys and list of definitions
         
@@ -61,6 +61,13 @@ class ordmonsel:
 # broswer.Chrome(chrome_options=chrome_options)
 
 # browser.create_options('test-type')
+    def orderstatus(self, date, info):
+        
+        transdate = browser.find_element_by_xpath(date).text
+        transinfo = browser.find_element_by_xpath(info).text
+        return transdate + transinfo
+        
+        
 
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
@@ -82,28 +89,45 @@ if __name__ == '__main__':
     browser.get(url)
     print 'loding page'
     print 'Login to C-Cex if you haven not logged in for awhile. Otherwise order page will load automatically'
-    time.sleep(5)
+    time.sleep(10)
     browserconf.loadcookies()
     browser.get(url)
 #     browser.find_element(browser.by.LINK_TEXT(url)).sendKeys()
 #    browser.
     
-    time.sleep(5)
+    time.sleep(10)
     
 #    time.sleep(60)
     browserconf.savecookies()
     print 'saving cookies'
 #    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
 #    orders = browser.find_element_by_xpath('//tr[(@class = "hand")]').text
-    raworders = browser.find_element_by_xpath('//table[(@class = "t_ot")]').text
-#     while True:
-#         regstringt = re.compile(raw_input("expression to try: "))
-#         print (re.findall(regstringt, raworders ))
-    
-    browserconf.orders()
+#     transdate = browser.find_element_by_xpath('//*[@id="flog"]/table/tbody/tr[2]/td[1]').text
+#     transinfo = browser.find_element_by_xpath('//*[@id="flog"]/table/tbody/tr[2]/td[5]').text
+#     oldtrans = transdate + transinfo
+#     print type(oldtrans)
+#     initial order status
+    orderstatustwo=None
+    while True:
+        browser.refresh()
+        time.sleep(5)
+        orderstatusone = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]')
+        print 'in one'
+        if orderstatustwo:
+            if not orderstatusone == orderstatustwo:
+                print "an order has bee executed"
+                print "still in one"
+        time.sleep(15)
+        browser.refresh()
+        time.sleep(5)
+        print 'in two'
+        orderstatustwo = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]')
+        if not orderstatusone == orderstatustwo:
+            print "an order has bee executed"
+            print 'still in two'
+        time.sleep(15)
         
-#     print raworders
-#    browser.find_element_by_tag_name('h1')    
+        
     
      
     pass
