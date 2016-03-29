@@ -42,11 +42,19 @@ class ordmonsel:
         pickle.dump( browser.get_cookies() , open("cookies.pkl","wb"))
         
     def orders(self):
-        regstring = re.compile(r'\d+.*[Buy|Sell]\s\d+\.\d*\s')
+#         pull using regular experssions
+        regstring = re.compile(r'\d+.*[Buy|Sell]\s\d+\.?\d*\s\w*\s\d*\.?\d*\b')
         neworders = re.findall(regstring, raworders )
-        print neworders
-#         for order in neworders:
-#             print (re.findall(regstring, order ))
+#         create list of keys and list of definitions
+        
+        #print neworders
+        
+        for order in neworders:
+            keylist = order[-3]
+#             keylist = order.split(delimeter)[0]
+            print str(keylist)
+#             print order
+            
 #             print order
     
 # broswer.Chrome(chrome_options=chrome_options)
@@ -87,11 +95,11 @@ if __name__ == '__main__':
 #    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
 #    orders = browser.find_element_by_xpath('//tr[(@class = "hand")]').text
     raworders = browser.find_element_by_xpath('//table[(@class = "t_ot")]').text
-    while True:
-        regstringt = re.compile(raw_input("expression to try: "))
-        print (re.findall(regstringt, raworders ))
+#     while True:
+#         regstringt = re.compile(raw_input("expression to try: "))
+#         print (re.findall(regstringt, raworders ))
     
-    #browserconf.orders()
+    browserconf.orders()
         
 #     print raworders
 #    browser.find_element_by_tag_name('h1')    
