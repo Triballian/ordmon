@@ -45,14 +45,15 @@ class ordmonsel:
 #         pull using regular experssions
         regstring = re.compile(r'\d+.*[Buy|Sell]\s\d+\.?\d*\s\w*\s\d*\.?\d*\b')
         neworders = re.findall(regstring, raworders )
+        
 #         create list of keys and list of definitions
         
         #print neworders
         
-        for order in neworders:
-            keylist = order[-3]
+#         for order in neworders:
+#             keylist = order[-3]
 #             keylist = order.split(delimeter)[0]
-            print str(keylist)
+#             print str(keylist)
 #             print order
             
 #             print order
@@ -61,7 +62,7 @@ class ordmonsel:
 
 # browser.create_options('test-type')
 
-url = 'https://c-cex.com/?id=orders'
+url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
 
 if __name__ == '__main__':
