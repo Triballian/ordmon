@@ -117,7 +117,7 @@ if __name__ == '__main__':
             if not orderstatusone == orderstatustwo:
                 print "an order has bee executed"
                 print "still in one"
-        time.sleep(15)
+        time.sleep(30)
         browser.refresh()
         time.sleep(5)
         print 'in two'
@@ -125,7 +125,7 @@ if __name__ == '__main__':
         if not orderstatusone == orderstatustwo:
             print "an order has bee executed"
             print 'still in two'
-        time.sleep(15)
+        time.sleep(30)
         
         
     
