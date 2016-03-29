@@ -6,9 +6,13 @@ I use 2.9 win32
 just place chromedriver.exe into the same directory as this app
 Instructions:
 This has limited features and so requires some playing with at least until someone else or I make it more user friendly
-You need to be logged in for it to work. Aster the first time you log in it should be able to run automatically,
+You need to be logged in for it to work. After the first time you log in it should be able to run automatically,
 you can open up a new tab and use the c-cex website normally but you don't want to work on the first tab the app opens
 any questions or comments you can contact me at 
+other requirements:
+selenium
+pip install selenium
+
 noe@stakeco.in 
 
 @author: Noe
