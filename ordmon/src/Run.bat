@@ -1,0 +1,2 @@
+python ordmonsel.py
+pause
