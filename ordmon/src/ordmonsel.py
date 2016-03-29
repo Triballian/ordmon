@@ -14,6 +14,8 @@ from selenium import webdriver
 
 import time
 import os
+import winsound
+
 
 
 class ordmonsel:
@@ -46,6 +48,21 @@ class ordmonsel:
         transinfo = browser.find_element_by_xpath(info).text
         return transdate + transinfo
         
+    def ordalert(self):
+        ostop = None
+        while not ostop:
+        
+        
+            winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
+            ostop = raw_input('Press any key:')
+            ostop = 'stop'
+            winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
+            
+            
+            
+        
+        
+        
         
 
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
@@ -53,9 +70,12 @@ url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
 if __name__ == '__main__':
     
+        
 
     browserconf = ordmonsel()
-   
+    
+    
+      
     browser = browserconf.setupbrowser()
     
     
@@ -68,7 +88,7 @@ if __name__ == '__main__':
     browser.get(url)
 
     
-    time.sleep(10)
+    time.sleep(30)
     
 
     browserconf.savecookies()
@@ -83,16 +103,18 @@ if __name__ == '__main__':
         if orderstatustwo:
             if not orderstatusone == orderstatustwo:
                 print "an order has bee executed"
+                browserconf.ordalert()
                 
-        time.sleep(30)
+        time.sleep(60)
         browser.refresh()
         time.sleep(5)
         
         orderstatustwo = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]')
         if not orderstatusone == orderstatustwo:
             print "an order has bee executed"
+            browserconf.ordalert()
             
-        time.sleep(30)
+        time.sleep(60)
         
         
     
