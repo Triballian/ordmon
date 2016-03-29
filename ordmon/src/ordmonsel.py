@@ -14,6 +14,7 @@ from selenium.webdriver.common.keys import Keys
 # import selenium2libary
 import time
 import os
+#from distutils.tests.test_register import RawInputs
 
 class ordmonsel:
 
@@ -39,6 +40,16 @@ class ordmonsel:
                 
     def savecookies(self):
         pickle.dump( browser.get_cookies() , open("cookies.pkl","wb"))
+        
+    def orders(self):
+        regstring = re.compile(r'\d+.*[Buy|Sell]\s\d+\.\d*\s')
+        neworders = re.findall(regstring, raworders )
+        print neworders
+#         for order in neworders:
+#             print (re.findall(regstring, order ))
+#             print order
+        
+        
         
         
         
@@ -81,8 +92,14 @@ if __name__ == '__main__':
     print 'saving cookies'
 #    orders = browser.find_element_by_xpath('//tr[contains(@class, "hand")]/text()/following::td').text
 #    orders = browser.find_element_by_xpath('//tr[(@class = "hand")]').text
-    orders = browser.find_element_by_xpath('//table[(@class = "t_ot")]').text
-    print orders
+    raworders = browser.find_element_by_xpath('//table[(@class = "t_ot")]').text
+    while True:
+        regstringt = re.compile(raw_input("expression to try: "))
+        print (re.findall(regstringt, raworders ))
+    
+    #browserconf.orders()
+        
+#     print raworders
 #    browser.find_element_by_tag_name('h1')    
     
      
