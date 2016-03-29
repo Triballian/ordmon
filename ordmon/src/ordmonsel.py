@@ -48,18 +48,12 @@ class ordmonsel:
 #         for order in neworders:
 #             print (re.findall(regstring, order ))
 #             print order
-        
-        
-        
-        
-        
     
 # broswer.Chrome(chrome_options=chrome_options)
 
 # browser.create_options('test-type')
 
 url = 'https://c-cex.com/?id=orders'
-
 
 
 if __name__ == '__main__':
