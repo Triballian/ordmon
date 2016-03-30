@@ -64,7 +64,7 @@ class ordmonsel:
         
         
             winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
-            ostop = raw_input('Press any key:')
+            raw_input('Press any key:')
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
             
