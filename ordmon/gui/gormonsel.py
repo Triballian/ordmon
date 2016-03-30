@@ -63,8 +63,10 @@ class StartPage(Tkinter.Frame):
         tsnames = ('C-cex','Bittrex')
         
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
-        nameMenu.grid(row=0, column=0, columnspan=2)
+#         nameMenu.grid(row=0, column=0, columnspan=2)
         nameMenu.config(width=20)
+        nameMenu.grid_columnconfigure(1, weight=1)
+        nameMenu.pack()
         menu = nameMenu.children['menu']
         menu.delete(0, "end")
         
