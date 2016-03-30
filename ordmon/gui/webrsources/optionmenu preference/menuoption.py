@@ -39,7 +39,7 @@ menu.delete(0, "end")
 #    menu.add_command(label=name, command=lambda v=name: nameMenu.choice.set(v))
 
 for name in names:
-    menu.add_command(label=name, command=lambda v=name: ffet(v))
+    menu.add_command(label='Waht is this for', command=lambda v=name: ffet(v))
 
 
 # Entry for user to submit name

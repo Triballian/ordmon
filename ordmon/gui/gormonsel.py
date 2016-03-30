@@ -5,11 +5,15 @@ Created on Mar 30, 2016
 '''
 import Tkinter
 
-# omvar = Tkinter.StringVar()
-# omvar.set('Trade Site')
-# tsnames = ('C-cex','Bittrex')
+
+
+
 
 class Gormonsel(Tkinter.Tk):
+    
+    
+# create Order Monitor Variable instance of StringVar for use with optionmenu widget     
+    
     
     def __init__(self, *args, **kwargs):
         Tkinter.Tk.__init__(self, *args, **kwargs)
@@ -33,27 +37,47 @@ class Gormonsel(Tkinter.Tk):
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
+    
 
 def ffet(param):
     print(param)
         
 class StartPage(Tkinter.Frame):
     
+    
     def __init__(self, parent, controller):
+        
+        
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
         label = Tkinter.Label(self, text = 'This is the start page')
         label.pack(side='top', fill='x', pady=10)
         
-        button1 = Tkinter.Button(self, text='C-Cex',
-                                 command=lambda: controller.show_frame('CCex'))
-#         button2 = Tkinter.Button(self, text='Go to Page Two',
-#                                  command=lambda: controller.show_frame('Bittrex')
-        button2 = Tkinter.Button(self, text='Bittrex',
-                                 command=lambda: ffet('Future Update'))
+#         button1 = Tkinter.Button(self, text='C-Cex',
+#                                  command=lambda: controller.show_frame('CCex'))
+# 
+#         button2 = Tkinter.Button(self, text='Bittrex',
+#                                  command=lambda: ffet('Future Update'))
+        omvar = Tkinter.StringVar()
+        omvar.set('Trade Site')
+        tsnames = ('C-cex','Bittrex')
         
-        button1.pack()
-        button2.pack()
+        nameMenu = Tkinter.OptionMenu(self, omvar, ())
+        nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.config(width=20)
+        menu = nameMenu.children['menu']
+        menu.delete(0, "end")
+        
+        
+        
+        for name in tsnames:
+            menu.add_command(label=name, command=lambda v=name: controller.show_frame(v))
+        print 'Start Page'
+
+        
+        
+#         button1.pack()
+#         button2.pack()
      
    
     
@@ -87,8 +111,14 @@ class Bittrex(Tkinter.Frame):
 
 
 if __name__ == '__main__':
+    
+    
+    
     app = Gormonsel()
+    
     app.mainloop()
+    
+    
 #     root = Tkinter.Tk()
 #     mylabel = Tkinter.Label(root, text='I am a label widget')
 #     mybutton = Tkinter.Button(root, text='I am a button')
