@@ -51,7 +51,8 @@ class StartPage(Tkinter.Frame):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
         label = Tkinter.Label(self, text = 'This is the start page')
-        label.pack(side='top', fill='x', pady=10)
+#         label.pack(side='bottom', fill='x', pady=10)
+        label.grid(row=0, column=4, columnspan=2)
         
 #         button1 = Tkinter.Button(self, text='C-Cex',
 #                                  command=lambda: controller.show_frame('CCex'))
@@ -63,10 +64,11 @@ class StartPage(Tkinter.Frame):
         tsnames = ('C-cex','Bittrex')
         
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
-#         nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.grid(row=0, column=0, columnspan=2)
         nameMenu.config(width=20)
-        nameMenu.grid_columnconfigure(1, weight=1)
-        nameMenu.pack()
+#         nameMenu.grid_columnconfigure(1, weight=1)
+#        nameMenu.pack()
+#         nameMenu.place(anchor='nw')
         menu = nameMenu.children['menu']
         menu.delete(0, "end")
         
