@@ -94,12 +94,16 @@ class StartPage(Tkinter.Frame):
         MText.grid(row=1, column=0, sticky='w')
 #         notes to user goes here
         
-        UMText = Tkinter.Text( self, width=80, height=10, wrap='word'  )
+        UMText = Tkinter.Text( self, width=40, height=10, wrap='word'  )
       
         
         UMText.insert('1.0', msgvar[0])
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
+        
+        olpbutton = Tkinter.Button(self, text='Save Cookies')
+        olpbutton.grid(row=1, column=2, sticky='n')
+        
 #         MText.config(state='normal')
 #         MText.delete('0.0', '100.0')
 #         MText.insert('0.0', 'here is the second message')
