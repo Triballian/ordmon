@@ -8,7 +8,7 @@ import Tkinter
 
 
 tsnames = ('C-cex','Bittrex')
-msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\n After saving your cookies. Click on the start button.")
+msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\nAfter saving your cookies. Click on the start button.")
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
 
 class Gormonsel(Tkinter.Tk):
@@ -142,12 +142,67 @@ class Ccex(Tkinter.Frame):
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
         
         omvar.set('C-Cex')
-        nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.grid(row=0, column=0, columnspan=2, sticky='w')
         nameMenu.config(width=20)
         menu = nameMenu.children['menu']
         menu.delete(0, "end")
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
+#         Top widgets    
+        MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
+
+        
+        MText.insert('1.0', "Click start to start Monitoring trades")
+
+        MText.config(state='disabled')
+        MText.grid(row=1, column=0, sticky='w')
+        
+        
+        
+#         notes to user goes here
+#         
+        UMText = Tkinter.Text( self, width=40, height=11, wrap='word'  )
+      
+        
+        UMText.insert('1.0', msgvar[1])
+        UMText.config(state='disabled')
+        UMText.grid(row=9, column=0, sticky='w')
+        
+        olpbutton = Tkinter.Button(self, text='Open Log Page')
+        olpbutton.grid(row=1, column=2, sticky='n')
+      
+                
+        strtbutton = Tkinter.Button(self, text='START MONITORING')
+        strtbutton.grid(row=1, column=3, sticky='n')
+        
+        scpbutton = Tkinter.Button(self, text='Save Cookies')
+        scpbutton.grid(row=3, column=2, sticky='n')
+        
+        stslabel = Tkinter.Label(self, text = 'Not currently Monitoring', bg='red')
+        stslabel.grid(row=3, column=3, columnspan=2)
+#         stslabel.destroy()
+        
+#         stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
+#         stslabel.grid(row=3, column=3, columnspan=2)
+        
+#         rfreshText = Tkinter.Text( self, width=2, height=5, wrap='word'  )
+#       
+#         
+#         rfreshText.insert('1.0', 'refreshing in ' + ' seconds')
+#         rfreshText.config(state='disabled')
+#         UMText.grid(row=2, column=4, sticky='w')
+
+        rfreshlabel = Tkinter.Label(self, text = 'refreshing in ' + ' seconds')
+        
+        rfreshlabel.grid(row=1, column=4, columnspan=2, sticky='n')
+        
+        ltradelabel = Tkinter.Label(self, text = 'The last trade occurred at ')
+        
+        ltradelabel.grid(row=1, column=6, columnspan=2, sticky='n')
+        
+        
+        
+
             
         
         
