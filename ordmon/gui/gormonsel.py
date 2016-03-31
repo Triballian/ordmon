@@ -8,6 +8,8 @@ import Tkinter
 
 
 tsnames = ('C-cex','Bittrex')
+msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\n After saving your cookies. Click on the start button.")
+cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
 
 class Gormonsel(Tkinter.Tk):
     
@@ -50,7 +52,7 @@ class StartPage(Tkinter.Frame):
         
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
-        label = Tkinter.Label(self, text = 'This is the start page')
+        label = Tkinter.Label(self, text = 'Gui Order Monitory using Selenium and Chrome Driver')
 #         label.pack(side='bottom', fill='x', pady=10)
         label.grid(row=0, column=4, columnspan=2)
         
@@ -64,7 +66,7 @@ class StartPage(Tkinter.Frame):
         
         
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
-        nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.grid(row=0, column=0, columnspan=2, sticky='w')
         nameMenu.config(width=20)
 #         nameMenu.grid_columnconfigure(1, weight=1)
 #        nameMenu.pack()
@@ -76,6 +78,37 @@ class StartPage(Tkinter.Frame):
         
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
+            
+            
+#         Message Widget
+
+        
+#         mvar = Tkinter.StringVar()
+#         mvar.set('first value')
+#         App output goes here
+        MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
+#         mvar.text.set('testing'
+        
+        MText.insert('1.0', "Don't forget to log in if you haven't already: Click open Log Page button. Then Click save cookies.")
+        MText.config(state='disabled')
+        MText.grid(row=1, column=0, sticky='w')
+#         notes to user goes here
+        
+        UMText = Tkinter.Text( self, width=80, height=10, wrap='word'  )
+      
+        
+        UMText.insert('1.0', msgvar[0])
+        UMText.config(state='disabled')
+        UMText.grid(row=9, column=0, sticky='w')
+#         MText.config(state='normal')
+#         MText.delete('0.0', '100.0')
+#         MText.insert('0.0', 'here is the second message')
+#         MText.config(state='disabled')
+        
+        
+#         mvar.set('second value')
+        
+        
         
 
         
@@ -90,7 +123,7 @@ class Ccex(Tkinter.Frame):
     def __init__(self, parent, controller):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
-        label = Tkinter.Label(self, text = 'This is C-cex')
+        label = Tkinter.Label(self, text = 'Gui Order Monitory using Selenium and Chrome Driver')
         label.grid(row=0, column=4, columnspan=2)
 #         label.pack(side='top', fill='x', pady=10)
 #         button = Tkinter.Button(self, text='Go to the start page',
@@ -102,10 +135,13 @@ class Ccex(Tkinter.Frame):
         
         omvar.set('C-Cex')
         nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.config(width=20)
         menu = nameMenu.children['menu']
         menu.delete(0, "end")
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
+            
+        
         
         
         
@@ -117,13 +153,27 @@ class Bittrex(Tkinter.Frame):
     def __init__(self, parent, controller):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
-        label = Tkinter.Label(self, text = 'This is page 2')
-        label.pack(side='top', fill='x', pady=10)
-        button = Tkinter.Button(self, text='Go to the start page',
-                                command=lambda: controller.show_frame('StartPage'))
+        label = Tkinter.Label(self, text = 'Future Update')
+        label.grid(row=0, column=4, columnspan=2)
+        
+        omvar = Tkinter.StringVar()
+        nameMenu = Tkinter.OptionMenu(self, omvar, ())
+        
+        omvar.set('Bittrex')
+        nameMenu.grid(row=0, column=0, columnspan=2)
+        nameMenu.config(width=20)
+        menu = nameMenu.children['menu']
+        menu.delete(0, "end")
+        for name in tsnames:
+            menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
         
         
-        button.pack()
+#         label.pack(side='top', fill='x', pady=10)
+#         button = Tkinter.Button(self, text='Go to the start page',
+#                                 command=lambda: controller.show_frame('StartPage'))
+#         
+#         
+#         button.pack()
         
    
 
