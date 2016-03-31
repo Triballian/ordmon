@@ -90,6 +90,7 @@ class StartPage(Tkinter.Frame):
 #         mvar.text.set('testing'
         
         MText.insert('1.0', "Don't forget to log in if you haven't already: Click open Log Page button. Then Click save cookies.")
+#         MText.delete('0.0', 'end')
         MText.config(state='disabled')
         MText.grid(row=1, column=0, sticky='w')
 #         notes to user goes here
@@ -101,11 +102,14 @@ class StartPage(Tkinter.Frame):
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
         
-        olpbutton = Tkinter.Button(self, text='Save Cookies')
+        olpbutton = Tkinter.Button(self, text='Open Log Page')
         olpbutton.grid(row=1, column=2, sticky='n')
         
+        scpbutton = Tkinter.Button(self, text='Save Cookies')
+        scpbutton.grid(row=2, column=2, sticky='n')
+        
 #         MText.config(state='normal')
-#         MText.delete('0.0', '100.0')
+        
 #         MText.insert('0.0', 'here is the second message')
 #         MText.config(state='disabled')
         
