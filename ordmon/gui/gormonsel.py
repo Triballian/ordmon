@@ -7,7 +7,7 @@ import Tkinter
 
 
 
-
+tsnames = ('C-cex','Bittrex')
 
 class Gormonsel(Tkinter.Tk):
     
@@ -25,7 +25,7 @@ class Gormonsel(Tkinter.Tk):
         
         self.frames = {}
         
-        for F in (StartPage, CCex, Bittrex):
+        for F in (StartPage, Ccex, Bittrex):
             page_name = F.__name__
             frame = F(container, self)
             self.frames[page_name] = frame
@@ -55,13 +55,13 @@ class StartPage(Tkinter.Frame):
         label.grid(row=0, column=4, columnspan=2)
         
 #         button1 = Tkinter.Button(self, text='C-Cex',
-#                                  command=lambda: controller.show_frame('CCex'))
+#                                  command=lambda: controller.show_frame('Ccex'))
 # 
 #         button2 = Tkinter.Button(self, text='Bittrex',
 #                                  command=lambda: ffet('Future Update'))
         omvar = Tkinter.StringVar()
         omvar.set('Trade Site')
-        tsnames = ('C-cex','Bittrex')
+        
         
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
         nameMenu.grid(row=0, column=0, columnspan=2)
@@ -75,8 +75,8 @@ class StartPage(Tkinter.Frame):
         
         
         for name in tsnames:
-            menu.add_command(label=name, command=lambda v=name: controller.show_frame(v))
-        print 'Start Page'
+            menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
+        
 
         
         
@@ -85,18 +85,32 @@ class StartPage(Tkinter.Frame):
      
    
     
-class CCex(Tkinter.Frame):
+class Ccex(Tkinter.Frame):
     
     def __init__(self, parent, controller):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
-        label = Tkinter.Label(self, text = 'This is page 1')
-        label.pack(side='top', fill='x', pady=10)
-        button = Tkinter.Button(self, text='Go to the start page',
-                                command=lambda: controller.show_frame('StartPage'))
+        label = Tkinter.Label(self, text = 'This is C-cex')
+        label.grid(row=0, column=4, columnspan=2)
+#         label.pack(side='top', fill='x', pady=10)
+#         button = Tkinter.Button(self, text='Go to the start page',
+#                                 command=lambda: controller.show_frame('StartPage'))
+
+        print 'Ccex'
+        omvar = Tkinter.StringVar()
+        nameMenu = Tkinter.OptionMenu(self, omvar, ())
+        
+        omvar.set('C-Cex')
+        nameMenu.grid(row=0, column=0, columnspan=2)
+        menu = nameMenu.children['menu']
+        menu.delete(0, "end")
+        for name in tsnames:
+            menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
         
         
-        button.pack()
+        
+        
+#         button.pack()
         
 class Bittrex(Tkinter.Frame):
     
