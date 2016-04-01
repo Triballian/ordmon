@@ -17,7 +17,7 @@ noe@stakeco.in
 
 @author: Noe
 '''
-
+url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 import pickle
 from selenium import webdriver
 
@@ -26,7 +26,7 @@ import time
 import os
 import winsound
 
-
+url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
 class ordmonsel:
 
@@ -41,19 +41,25 @@ class ordmonsel:
         return webdriver.Chrome(chrome_options=chrome_options)
     
     
-    def loadcookies(self):
+    def loadcookies(self, browser):
+        _browser=browser
         if os.path.isfile('cookies.pkl'):
             cookies = pickle.load(open('cookies.pkl', 'rb'))
             for cookie in cookies:
-                browser.add_cookie(cookie)
+                _browser.add_cookie(cookie)
                 
-    def savecookies(self):
-        pickle.dump( browser.get_cookies() , open("cookies.pkl","wb"))
+    def savecookies(self, browser):
+        _browser=browser
+        pickle.dump( _browser.get_cookies() , open("cookies.pkl","wb"))
         
 
 
-    def orderstatus(self, date, info):
+    def orderstatus(self, date, info, browser, browserconf):
+        _browser =browser
         
+        _browserconf = browserconf
+        
+        _browserconf.savecookies(browser)
         transdate = browser.find_element_by_xpath(date).text
         transinfo = browser.find_element_by_xpath(info).text
         return transdate + transinfo
@@ -68,65 +74,80 @@ class ordmonsel:
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
             
+    def startmon(self, browser, browserconf):
+        while True:
             
+            _browser = browser
+            _browserconf = browserconf
+            orderstatustwo=None
             
-        
-        
-        
-        
-
-url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
-
-
-if __name__ == '__main__':
-    
-        
-
-    browserconf = ordmonsel()
-    
-    
-      
-    browser = browserconf.setupbrowser()
-    
-    
-
-    browser.get(url)
-    print 'loding page'
-    print 'Login to C-Cex if you haven not logged in for awhile. Otherwise order page will load automatically'
-    time.sleep(10)
-    browserconf.loadcookies()
-    browser.get(url)
-
-    
-    time.sleep(30)
-    
-
-    browserconf.savecookies()
-    print 'saving cookies'
-
-    orderstatustwo=None
-    while True:
-        browser.refresh()
-        time.sleep(5)
-        orderstatusone = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]')
-        
-        if orderstatustwo:
+            _browser.refresh()
+            time.sleep(5)
+            orderstatusone = _browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', _browser, _browserconf)
+            
+            if orderstatustwo:
+                if not orderstatusone == orderstatustwo:
+                    print "an order has bee executed"
+                    _browserconf.ordalert()
+                    
+            time.sleep(60)
+            browser.refresh()
+            time.sleep(5)
+            
+            orderstatustwo = _browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', _browser, _browserconf)
             if not orderstatusone == orderstatustwo:
                 print "an order has bee executed"
-                browserconf.ordalert()
-                
-        time.sleep(60)
-        browser.refresh()
-        time.sleep(5)
-        
-        orderstatustwo = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]')
-        if not orderstatusone == orderstatustwo:
-            print "an order has bee executed"
-            browserconf.ordalert()
+                _browserconf.ordalert()
             
         time.sleep(60)
         
+    def openlogpage(self, browser, browserconf):
+        _browser = browser
+        _browserconf = browserconf
+        _browser.get(url)
+        _browserconf.loadcookies(_browser)
+        _browser.get(url)
+            
+            
+            
         
-    
-     
-    pass
+        
+        
+        
+
+
+
+
+# if __name__ == '__main__':
+#     
+#         
+# 
+#     browserconf = ordmonsel()
+#     
+#     
+#       
+#     browser = browserconf.setupbrowser()
+#     
+#     
+# 
+#     browser.get(url)
+#     print 'loding page'
+#     print 'Login to C-Cex if you haven not logged in for awhile. Otherwise order page will load automatically'
+#     time.sleep(10)
+#     browserconf.loadcookies()
+#     browser.get(url)
+# 
+#     
+#     time.sleep(30)
+#     
+# 
+#     browserconf.savecookies(browser)
+#     print 'saving cookies'
+# 
+#     orderstatustwo=None
+#     
+#         
+#         
+#     
+#      
+#     pass

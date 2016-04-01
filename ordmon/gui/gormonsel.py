@@ -4,14 +4,16 @@ Created on Mar 30, 2016
 @author: Noe
 '''
 import Tkinter
-
+import ordmonsel
 
 
 tsnames = ('C-cex','Bittrex')
 msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\nAfter saving your cookies. Click on the start button.")
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
+url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
 class Gormonsel(Tkinter.Tk):
+
     
     
 # create Order Monitor Variable instance of StringVar for use with optionmenu widget     
@@ -89,7 +91,7 @@ class StartPage(Tkinter.Frame):
         MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
 #         mvar.text.set('testing'
         
-        MText.insert('1.0', "Don't forget to log in if you haven't already: Click open Log Page button. Then Click save cookies.")
+        MText.insert('1.0', "Don't forget to log in if you haven't already: Click open Log Page button.")
 #         MText.delete('0.0', 'end')
         MText.config(state='disabled')
         MText.grid(row=1, column=0, sticky='w')
@@ -102,11 +104,11 @@ class StartPage(Tkinter.Frame):
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
         
-        olpbutton = Tkinter.Button(self, text='Open Log Page')
-        olpbutton.grid(row=1, column=2, sticky='n')
-        
-        scpbutton = Tkinter.Button(self, text='Save Cookies')
-        scpbutton.grid(row=2, column=2, sticky='n')
+#         olpbutton = Tkinter.Button(self, text='Open Log Page')
+#         olpbutton.grid(row=1, column=2, sticky='n')
+#         
+#         scpbutton = Tkinter.Button(self, text='Save Cookies')
+#         scpbutton.grid(row=2, column=2, sticky='n')
         
 #         MText.config(state='normal')
         
@@ -129,6 +131,7 @@ class StartPage(Tkinter.Frame):
 class Ccex(Tkinter.Frame):
     
     def __init__(self, parent, controller):
+        
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
         label = Tkinter.Label(self, text = 'Gui Order Monitory using Selenium and Chrome Driver')
@@ -152,7 +155,7 @@ class Ccex(Tkinter.Frame):
         MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
 
         
-        MText.insert('1.0', "Click start to start Monitoring trades")
+        MText.insert('1.0', "After logging into C-cex, click OPEN lOG PAGE, when you are on the Trade log page, Click start to start Monitoring trades")
 
         MText.config(state='disabled')
         MText.grid(row=1, column=0, sticky='w')
@@ -168,15 +171,18 @@ class Ccex(Tkinter.Frame):
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
         
-        olpbutton = Tkinter.Button(self, text='Open Log Page')
+        olpbutton = Tkinter.Button(self, text='Open Log Page', command=lambda u=url: browserconf.openlogpage(browser, browserconf))
+        
+        
         olpbutton.grid(row=1, column=2, sticky='n')
       
                 
-        strtbutton = Tkinter.Button(self, text='START MONITORING')
+        strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: browserconf.startmon(browser, browserconf))
         strtbutton.grid(row=1, column=3, sticky='n')
         
-        scpbutton = Tkinter.Button(self, text='Save Cookies')
-        scpbutton.grid(row=3, column=2, sticky='n')
+#         scpbutton = Tkinter.Button(self, text='Save Cookies', command=lambda: )
+        
+#         scpbutton.grid(row=3, column=2, sticky='n')
         
         stslabel = Tkinter.Label(self, text = 'Not currently Monitoring', bg='red')
         stslabel.grid(row=3, column=3, columnspan=2)
@@ -243,6 +249,9 @@ class Bittrex(Tkinter.Frame):
 
 if __name__ == '__main__':
     
+    
+    browserconf = ordmonsel.ordmonsel()
+    browser = browserconf.setupbrowser()
     
     
     app = Gormonsel()
