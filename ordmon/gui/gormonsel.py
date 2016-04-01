@@ -5,6 +5,7 @@ Created on Mar 30, 2016
 '''
 import Tkinter
 import ordmonsel
+import tkMessageBox
 
 
 
@@ -44,10 +45,14 @@ class Gormonsel(Tkinter.Tk):
         frame.tkraise()
     
 
-def ffet(param):
-    print(param)
+class Talert():
+    def tradeoccured(self):
+        tkMessageBox.showinfo("Trade has Just Occured1" )
+        
         
 class StartPage(Tkinter.Frame):
+    
+    
     
     
     def __init__(self, parent, controller):
@@ -79,6 +84,7 @@ class StartPage(Tkinter.Frame):
         
         
         
+        
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
             
@@ -104,6 +110,8 @@ class StartPage(Tkinter.Frame):
         UMText.insert('1.0', msgvar[0])
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
+        
+        
         
 #         olpbutton = Tkinter.Button(self, text='Open Log Page')
 #         olpbutton.grid(row=1, column=2, sticky='n')
@@ -172,7 +180,7 @@ class Ccex(Tkinter.Frame):
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
         
-        olpbutton = Tkinter.Button(self, text='Open Log Page', command=lambda u=url: browserconf.openlogpage(browser, browserconf))
+        olpbutton = Tkinter.Button(self, text='Open Log Page', command=lambda u=url: browserconf.openlogpage(browser, browserconf, strtbutton))
         
         
         olpbutton.grid(row=1, column=2, sticky='n')
@@ -181,16 +189,20 @@ class Ccex(Tkinter.Frame):
         strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: logmon.start())
         strtbutton.grid(row=1, column=3, sticky='n')
         
+        strtbutton.config(state='disable')
+        
 #         scpbutton = Tkinter.Button(self, text='Save Cookies', command=lambda: )
         
 #         scpbutton.grid(row=3, column=2, sticky='n')
         
         stslabel = Tkinter.Label(self, text = 'Not currently Monitoring', bg='red')
         stslabel.grid(row=3, column=3, columnspan=2)
-        stslabel.destroy()
-           
-        stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
-        stslabel.grid(row=3, column=3, columnspan=2)
+        startlabelvar = Tkinter.StringVar()
+        
+        
+        
+        
+        
         
 #         rfreshText = Tkinter.Text( self, width=2, height=5, wrap='word'  )
 #        
@@ -199,13 +211,16 @@ class Ccex(Tkinter.Frame):
 #         rfreshText.config(state='disabled')
 #         UMText.grid(row=2, column=4, sticky='w')
 
-        rfreshlabel = Tkinter.Label(self, text = 'refreshing in ' + ' seconds')
-        
+        rfreshlabel = Tkinter.Label(self)        
         rfreshlabel.grid(row=1, column=4, columnspan=2, sticky='n')
         
-        ltradelabel = Tkinter.Label(self, text = 'The last trade occurred at ')
+        ltradelabel = Tkinter.Label(self, text = '')
         
         ltradelabel.grid(row=1, column=6, columnspan=2, sticky='n')
+        
+        tradealtert = Talert()
+        
+        logmon.set_strtbutton(strtbutton, stslabel, startlabelvar, rfreshlabel, ltradelabel, tradealtert)
         
         
         
@@ -255,6 +270,7 @@ if __name__ == '__main__':
     browser = browserconf.setupbrowser()
     logmon = ordmonsel.LogMon(browser, browserconf)
     logmon.daemon = True
+    
     
     
     app = Gormonsel()

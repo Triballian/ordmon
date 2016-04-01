@@ -26,6 +26,8 @@ import time
 import os
 import winsound
 import threading
+import re
+
 
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
@@ -35,24 +37,50 @@ class LogMon(threading.Thread):
         self.browser = browser
         self.browserconf = browserconf
         
+    def set_strtbutton(self, strtbutton, stslabel, startlabelvar, rfreshlabel, ltradelabel, tradealtert):
+        self.strtbutton = strtbutton
+        self.stslabel = stslabel
+        self.startlabelvar = startlabelvar
+        self.rfreshlabel = rfreshlabel
+        self.ltradelabel = ltradelabel
+        self.tradealtert = tradealtert
+        
+     
+     
+        
     def run(self):
+        
+        self.strtbutton.config(state='disable')
+        
+           
+#         self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
+#         
+#         self.stslabel.grid(row=3, column=3, columnspan=2)
+#         self.startlabelvar.set("currently monitoring")
+        self.stslabel['text']='currently monitoring'
+        self.stslabel['bg']='green'
         print 'in startmon'
         while True:
             
-#             _browser = browser
-#             _browserconf = browserconf
+
             orderstatustwo=None
             
             self.browser.refresh()
             time.sleep(5)
             orderstatusone = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
-            
+            self.ltradelabel['text']=str('Last trade accured on ' + str(re.findall('\d{4}\-\d{2}\-\d{2}\s\d{2}\:\d{2}\:\d{2}',orderstatusone)).replace('u',''))
             if orderstatustwo:
                 if not orderstatusone == orderstatustwo:
                     print "an order has bee executed"
-                    self.browserconf.ordalert()
+                    self.browserconf.ordalert(self.tradealtert)
                     
+                    
+                    
+#                     
+                    
+            self.rfreshlabel['text']='Refreshing in 60 seconds'        
             time.sleep(60)
+            self.rfreshlabel['text']=''
             
             self.browser.refresh()
             time.sleep(5)
@@ -60,9 +88,10 @@ class LogMon(threading.Thread):
             orderstatustwo = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
             if not orderstatusone == orderstatustwo:
                 print "an order has bee executed"
-                self.browserconf.ordalert()
+                
+                self.browserconf.ordalert(self.tradealtert)
             
-        time.sleep(60)
+        
         
         
 
@@ -103,19 +132,23 @@ class ordmonsel:
         transinfo = browser.find_element_by_xpath(info).text
         return transdate + transinfo
         
-    def ordalert(self):
+    def ordalert(self, tradealtert):
+        self.tradealert = tradealtert
         ostop = None
         while not ostop:
         
         
             winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
-            raw_input('Press any key:')
+#             raw_input('Press any key:')
+            self.tradealert.tradeoccured()
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
             
     
         
-    def openlogpage(self, browser, browserconf):
+    def openlogpage(self, browser, browserconf, strtbutton):
+        _strtbutton =strtbutton
+        _strtbutton.config(state='normal')
         _browser = browser
         _browserconf = browserconf
         _browser.get(url)
