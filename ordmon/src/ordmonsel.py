@@ -25,10 +25,49 @@ from selenium import webdriver
 import time
 import os
 import winsound
+import threading
 
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
+class LogMon(threading.Thread):
+    def __init__(self, browser, browserconf):
+        threading.Thread.__init__(self)
+        self.browser = browser
+        self.browserconf = browserconf
+        
+    def run(self):
+        print 'in startmon'
+        while True:
+            
+#             _browser = browser
+#             _browserconf = browserconf
+            orderstatustwo=None
+            
+            self.browser.refresh()
+            time.sleep(5)
+            orderstatusone = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
+            
+            if orderstatustwo:
+                if not orderstatusone == orderstatustwo:
+                    print "an order has bee executed"
+                    self.browserconf.ordalert()
+                    
+            time.sleep(60)
+            
+            self.browser.refresh()
+            time.sleep(5)
+            
+            orderstatustwo = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
+            if not orderstatusone == orderstatustwo:
+                print "an order has bee executed"
+                self.browserconf.ordalert()
+            
+        time.sleep(60)
+        
+        
+
 class ordmonsel:
+    
 
     
 
@@ -74,32 +113,7 @@ class ordmonsel:
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
             
-    def startmon(self, browser, browserconf):
-        while True:
-            
-            _browser = browser
-            _browserconf = browserconf
-            orderstatustwo=None
-            
-            _browser.refresh()
-            time.sleep(5)
-            orderstatusone = _browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', _browser, _browserconf)
-            
-            if orderstatustwo:
-                if not orderstatusone == orderstatustwo:
-                    print "an order has bee executed"
-                    _browserconf.ordalert()
-                    
-            time.sleep(60)
-            browser.refresh()
-            time.sleep(5)
-            
-            orderstatustwo = _browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', _browser, _browserconf)
-            if not orderstatusone == orderstatustwo:
-                print "an order has bee executed"
-                _browserconf.ordalert()
-            
-        time.sleep(60)
+    
         
     def openlogpage(self, browser, browserconf):
         _browser = browser

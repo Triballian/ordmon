@@ -7,6 +7,7 @@ import Tkinter
 import ordmonsel
 
 
+
 tsnames = ('C-cex','Bittrex')
 msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\nAfter saving your cookies. Click on the start button.")
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
@@ -177,7 +178,7 @@ class Ccex(Tkinter.Frame):
         olpbutton.grid(row=1, column=2, sticky='n')
       
                 
-        strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: browserconf.startmon(browser, browserconf))
+        strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: logmon.start())
         strtbutton.grid(row=1, column=3, sticky='n')
         
 #         scpbutton = Tkinter.Button(self, text='Save Cookies', command=lambda: )
@@ -186,14 +187,14 @@ class Ccex(Tkinter.Frame):
         
         stslabel = Tkinter.Label(self, text = 'Not currently Monitoring', bg='red')
         stslabel.grid(row=3, column=3, columnspan=2)
-#         stslabel.destroy()
-        
-#         stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
-#         stslabel.grid(row=3, column=3, columnspan=2)
+        stslabel.destroy()
+           
+        stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
+        stslabel.grid(row=3, column=3, columnspan=2)
         
 #         rfreshText = Tkinter.Text( self, width=2, height=5, wrap='word'  )
-#       
-#         
+#        
+#          
 #         rfreshText.insert('1.0', 'refreshing in ' + ' seconds')
 #         rfreshText.config(state='disabled')
 #         UMText.grid(row=2, column=4, sticky='w')
@@ -252,6 +253,8 @@ if __name__ == '__main__':
     
     browserconf = ordmonsel.ordmonsel()
     browser = browserconf.setupbrowser()
+    logmon = ordmonsel.LogMon(browser, browserconf)
+    logmon.daemon = True
     
     
     app = Gormonsel()
