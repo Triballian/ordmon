@@ -5,7 +5,19 @@ Created on Mar 30, 2016
 '''
 import Tkinter
 import ordmonsel
+#import mp3play
 import tkMessageBox
+import threading
+import time
+import pygame
+# from pygame.locals import *
+
+pygame.init()
+# alertsound = pygame.mixer.Sound('air horn.wav')
+#pygame.mixer.play(alertsound)
+
+# pygame.mixer.Sound.play(alertsound)
+alertmusic = pygame.mixer.music.load('air horn.wav')
 
 
 
@@ -13,6 +25,45 @@ tsnames = ('C-cex','Bittrex')
 msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\nAfter saving your cookies. Click on the start button.")
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
+
+# class Hornalarm(threading.Thread):
+#     horn = mp3play.load('Air Horn.mp3')        
+#     def __init__(self):
+#         super(Hornalarm, self).__init__()
+#         self._stop = threading.Event()
+#         
+#     def set_sound(self, f):
+#         self.f = f
+#         
+#     def run(self):
+# #         self.f = f
+#         print 'run before loop'
+# #         while True:
+#         print 'after loop'
+#         global sound_thread
+#         sound_thread= threading.Thread(target=self.horn.play())
+#         sound_thread.start()
+#         time.sleep(10)
+#             
+#     def stop(self):
+#         self._stop.set()
+#             
+#     def stopped(self):        
+#         return self._stop.isSet()
+
+# horn = mp3play.load('Air Horn.mp3') 
+
+# def startPlaying():
+#     horn.play()
+    
+   
+
+
+# def playSound():
+#     global sound_thread 
+#     sound_thread = threading.Thread(target=startPlaying)
+#     sound_thread.start()
+    
 
 class Gormonsel(Tkinter.Tk):
 
@@ -45,15 +96,24 @@ class Gormonsel(Tkinter.Tk):
         frame.tkraise()
     
 
+# class Talert():
+#     def tradeoccured(self):
+#         browserconf.alertstart()
+#         tkMessageBox.showinfo("Trade has Just Occured1" )
+#         print 'in the altert box'
+
 class Talert():
     def tradeoccured(self):
+#         pygame.mixer.music.play(-1)
         tkMessageBox.showinfo("Trade has Just Occured1" )
-        
+#         pygame.mixer.music.stop()
+        print 'in the altert box'
+
         
 class StartPage(Tkinter.Frame):
+#     playSound()
     
-    
-    
+        
     
     def __init__(self, parent, controller):
         
@@ -112,6 +172,7 @@ class StartPage(Tkinter.Frame):
         UMText.grid(row=9, column=0, sticky='w')
         
         
+#         f.play()
         
 #         olpbutton = Tkinter.Button(self, text='Open Log Page')
 #         olpbutton.grid(row=1, column=2, sticky='n')
@@ -200,6 +261,9 @@ class Ccex(Tkinter.Frame):
         startlabelvar = Tkinter.StringVar()
         
         
+       
+        print 'should be playing'
+        
         
         
         
@@ -219,6 +283,16 @@ class Ccex(Tkinter.Frame):
         ltradelabel.grid(row=1, column=6, columnspan=2, sticky='n')
         
         tradealtert = Talert()
+        
+#         tradealtert.tradeoccured()
+#         browserconf.alertstop()
+#         h.start()
+#         time.sleep(60)
+#         pygame.mixer.music.play(-1)
+#         tkMessageBox.showinfo("Trade has Just Occured1" )
+#         pygame.mixer.music.stop()
+#         h.stopped()
+        
         
         logmon.set_strtbutton(strtbutton, stslabel, startlabelvar, rfreshlabel, ltradelabel, tradealtert)
         
@@ -271,11 +345,19 @@ if __name__ == '__main__':
     logmon = ordmonsel.LogMon(browser, browserconf)
     logmon.daemon = True
     
+#     f = mp3play.load('Air Horn.mp3')
+#     h = Hornalarm()
+#     f.play()
+#     h.set_sound(f)
+    
+#     tradealtert = Talert()
     
     
     app = Gormonsel()
-    
+#     f.play()
+#     time.sleep(60)
     app.mainloop()
+    
     
     
 #     root = Tkinter.Tk()

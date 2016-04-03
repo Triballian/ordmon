@@ -37,13 +37,14 @@ class LogMon(threading.Thread):
         self.browser = browser
         self.browserconf = browserconf
         
-    def set_strtbutton(self, strtbutton, stslabel, startlabelvar, rfreshlabel, ltradelabel, tradealtert):
+    def set_strtbutton(self, strtbutton, stslabel, startlabelvar, rfreshlabel, ltradelabel, tradealert):
         self.strtbutton = strtbutton
         self.stslabel = stslabel
         self.startlabelvar = startlabelvar
         self.rfreshlabel = rfreshlabel
         self.ltradelabel = ltradelabel
-        self.tradealtert = tradealtert
+        self.tradealert = tradealert
+        
         
      
      
@@ -61,6 +62,7 @@ class LogMon(threading.Thread):
         self.stslabel['bg']='green'
         print 'in startmon'
         while True:
+            self.tradealert.tradeoccured()
             
 
             orderstatustwo=None
@@ -72,7 +74,8 @@ class LogMon(threading.Thread):
             if orderstatustwo:
                 if not orderstatusone == orderstatustwo:
                     print "an order has bee executed"
-                    self.browserconf.ordalert(self.tradealtert)
+                    self.tradealert.tradeoccured()
+#                     self.browserconf.ordalert(self.tradealert.)
                     
                     
                     
@@ -88,8 +91,8 @@ class LogMon(threading.Thread):
             orderstatustwo = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
             if not orderstatusone == orderstatustwo:
                 print "an order has bee executed"
-                
-                self.browserconf.ordalert(self.tradealtert)
+                self.tradealert.tradeoccured()
+#                 self.browserconf.ordalert(self.tradealtert.)
             
         
         
@@ -132,17 +135,23 @@ class ordmonsel:
         transinfo = browser.find_element_by_xpath(info).text
         return transdate + transinfo
         
-    def ordalert(self, tradealtert):
-        self.tradealert = tradealtert
+    def ordalert(self):
+        
         ostop = None
         while not ostop:
         
         
             winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
 #             raw_input('Press any key:')
-            self.tradealert.tradeoccured()
+            
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
+            
+    def alertstop(self):
+        winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
+    
+    def alertstart(self):
+        winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
             
     
         
