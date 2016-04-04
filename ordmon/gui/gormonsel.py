@@ -5,8 +5,8 @@ You need to download the program chrome driver http://chromedriver.storage.googl
 I use 2.9 win32
 just place chromedriver.exe into the same directory as gormonsel.exe
 Instructions:
-This has limited features and so requires some playing with at least until someone else or I make it more user friendly
-You need to be logged in for it to work. After the first time you log in it should be able to run automatically,
+
+You need to log in after clicking on the Open log Page button in order for it to work. After the first time you log in, it shouldn't have to log in again for awhile,
 you can open up a new tab and use the c-cex website normally but you don't want to work on the first tab the app opens
 any questions or comments you can contact me at: 
 noe@stakeco.in
