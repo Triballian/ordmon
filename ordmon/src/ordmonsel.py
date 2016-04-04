@@ -32,68 +32,80 @@ import re
 
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
-class LogMon(threading.Thread):
+class LogMon():
     def __init__(self, browser, browserconf):
-        threading.Thread.__init__(self)
         self.browser = browser
         self.browserconf = browserconf
    
         
         
-    def set_env(self, talert):
-        self.talert = talert
-
+    def set_strtbutton(self, strtbutton, rfreshlabel, ltradelabel, stslabel):
+        self.strtbutton = strtbutton
+        self.rfreshlabel = rfreshlabel
+        self.ltradelabel = ltradelabel
+        self.stslabel = stslabel
         
-    def run(self):
+    def set_orderstatus(self, _orderstatustwo=None):
+        self.orderstatustwo = _orderstatustwo
         
-#         self.strtbutton.config(state='disable')
+     
+     
+        
+    def getlog(self):
+        
+        self.strtbutton.config(state='disable')
+        
+        
+           
+#         self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
 #         
-#          
-#         self.stslabel['text']='currently monitoring'
-#         self.stslabel['bg']='green'
-        print 'in startmon'
+#         self.stslabel.grid(row=3, column=3, columnspan=2)
+#         self.startlabelvar.set("currently monitoring")
+        self.stslabel['text']='currently monitoring'
+        self.stslabel['bg']='green'
+        
         
             
             
 
         
-        while True:
+        
          
-            self.browser.refresh()
-            time.sleep(5)
-            orderstatusone = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
-            self.ltradelabel['text']=str('Last trade accured at ' + str(re.findall('\d{4}\-\d{2}\-\d{2}\s\d{2}\:\d{2}\:\d{2}',orderstatusone)).replace('u',''))
-#             oderstatusone = 'wrong'
-            if self.orderstatustwo:
-                if not orderstatusone == orderstatustwo:
-                    print "an order has bee executed"
-                    
-                    toccurred = True
-                    
-                    print 'should be returning a true form 1st ' 
-                    
-                    
-                    return toccurred, orderstatustwo
-                    
-            
-            
-                   
-            
-            self.rfreshlabel['text']='Refreshing in 60 seconds' 
-            time.sleep(60)
-            self.rfreshlabel['text']=''
-            
-            self.browser.refresh()
-            time.sleep(5)
-            
-            self.orderstatustwo = browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
-            orderstatusone = 'wrong'
-            if not orderstatusone == orderstatustwo:
-                toccurred = True
-                
-                print "an order has bee executed"
-                print 'should be returning a true from second ' 
-                return toccurred, self.orderstatustwo
+        self.browser.refresh()
+        time.sleep(5)
+        orderstatus = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
+        self.ltradelabel['text']=str('Last trade accured at ' + str(re.findall('\d{4}\-\d{2}\-\d{2}\s\d{2}\:\d{2}\:\d{2}',orderstatus)).replace('u',''))
+        
+        return orderstatus
+#         oderstatusone = 'wrong'
+#         if self.orderstatustwo:
+#             if not orderstatusone == self.orderstatustwo:
+#                 toccurred = True
+#                 
+#                 print 'should be returning a true form 1st ' 
+#                 
+#                 print "an order has bee executed"
+#                 return toccurred, self.orderstatustwo
+#                 
+#         
+#         
+#                
+#         
+#         self.rfreshlabel['text']='Refreshing in 60 seconds' 
+#         time.sleep(60)
+#         self.rfreshlabel['text']=''
+#         
+#         self.browser.refresh()
+#         time.sleep(5)
+#         
+#         self.orderstatustwo = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
+#         orderstatusone = 'wrong'
+#         if not orderstatusone == self.orderstatustwo:
+#             toccurred = True
+#             
+#             print "an order has bee executed"
+#             print 'should be returning a true from second ' 
+#             return toccurred, self.orderstatustwo
             
         
        
@@ -131,7 +143,7 @@ class ordmonsel:
 
 
     def orderstatus(self, date, info, browser, browserconf):
-        _browser = browser
+        _browser =browser
         
         _browserconf = browserconf
         

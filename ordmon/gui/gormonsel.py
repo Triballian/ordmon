@@ -22,7 +22,7 @@ alertmusic = pygame.mixer.music.load('air horn.wav')
 
 
 tsnames = ('C-cex','Bittrex')
-msgvar=('Select the site you want to monitor trades on.', "Before getting started you will want to save your cookies after logging in.\n\nThis is so that you don't have to log in every time.\n\nIf you haven't used this app in a while you may have to save your cookies again.\n\nAfter saving your cookies. Click on the start button.")
+msgvar=('Select the site you want to monitor trades on.', "After logging in the first time you shouldn't have to login in again for awhile.\n\nIf you haven't used this app in a while you may have to login again.\n\nClick on the OPEN LOG PAGE , then START MONITORING button to start monitoring your trades.")
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
@@ -107,32 +107,11 @@ class Gormonsel(Tkinter.Tk):
     
     
 
-class Talert():
-    def __init__(self, browserconf):
-        self.browserconf = browserconf
-    
-    def tradeoccured(self):       
-        
-        print 'in the altert box'
-        
-    def startalarm(self):
-        pygame.mixer.music.play(-1)
-        self.stopalarmbutton.config(state='normal',bg='green')
-        
-        
-    def stopalarm(self):
-        self.stopalarmbutton.config(state='disable',bg='grey')
-        
-        pygame.mixer.music.stop()
-        
-    def set_env(self, stopalarmbuton):
-        self.stopalarmbuton = stopalarmbuton
-        
-    def callmon(self):
-        logmon.start()
-                 
-        
-    
+# class Talert():
+#     def tradeoccured(self):
+#         browserconf.alertstart()
+#         tkMessageBox.showinfo("Trade has Just Occured1" )
+#         print 'in the altert box'
 
 # class Talert(threading.Thread):
 #     def __init__(self):
@@ -146,49 +125,77 @@ class Talert():
 # #         pygame.mixer.music.stop()
 #         print 'after message'
 
-# class Startlogmon(threading.Thread):
-#         #     tradealert = Talert()
-#         #     tradealert.daemon = True
-#             def __init__(self,browserconf):
-#                 threading.Thread.__init__(self)
-#                 self.browserconf = browserconf
-#             
-#             def run(self):
-# #                 self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
-# # #         
-# #                 self.stslabel.grid(row=3, column=3, columnspan=2)
-# #                 self.startlabelvar.set("currently monitoring")
-# #                 self.stslabel['text']='currently monitoring'
-# #                 self.stslabel['bg']='green'
-#                 while True:
-#                     toccurred, _orderstatustwo = logmon.comparetlogs()
-#                     print toccurred
-#                     if toccurred:
-#                         pygame.mixer.music.play(-1)
-#                         self.talable['text']='A trade has Occured'
-#                         self.talable['bg']='green'
-#                         self.stopalarmbutton.config(state='normal',bg='yellow')
-#                     
-#                        
-#                         
-#                         
-#                         
-#                         
-#                         
-#         #                 self.tradealert.start()
-#             
-#             def set(self, stopalarmbutton, talable, stslabel):
-#                 self.stopalarmbutton = stopalarmbutton
-#                 self.talable = talable
-#                 self.stslabel = stslabel
+class Startlogmon(threading.Thread):
+        #     tradealert = Talert()
+        #     tradealert.daemon = True
+            def __init__(self,brwoser, browserconf):
+                threading.Thread.__init__(self)
+                self.browserconf = browserconf
+                self.browser = browser
+            
+            def run(self):
+#                 self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
+# #         
+#                 self.stslabel.grid(row=3, column=3, columnspan=2)
+#                 self.startlabelvar.set("currently monitoring")
+#                 self.stslabel['text']='currently monitoring'
+#                 self.stslabel['bg']='green'
+                orderstatustwo=None
+                while True:
+                    
+                    orderstatusone = logmon.getlog()
+                    
+                    if orderstatustwo:
+                        
+                        if not orderstatusone == orderstatustwo:
+                            self.startalarm()
+                            
+ 
+                        
+                    
+                    self.rfreshlabel['text']='Refreshing in 60 seconds' 
+                    time.sleep(60)
+                    self.browser.refresh()
+                    self.rfreshlabel['text']=''  
+                    time.sleep(5)
+                    
+                    orderstatustwo = logmon.getlog()
+                    
+                    if not orderstatusone == orderstatustwo:
+                        self.startalarm()
+                    self.rfreshlabel['text']='Refreshing in 60 seconds'
+                     
+                    time.sleep(60)
+                    self.browser.refresh()
+                    time.sleep(5)
+                    
+                       
+                        
+                        
+                        
+                        
+        #                 self.tradealert.start()
+            
+            def set(self, rfreshlabel, stopalarmbutton, talable, stslabel):
+                self.rfreshlabel = rfreshlabel
+                self.stopalarmbutton = stopalarmbutton
+                self.talable = talable
+                self.stslabel = stslabel
                 
-#                 
-#                 
-#                 
-#             def endalarm(self):
-#                 self.stopalarmbutton.config(state='disable',bg='grey')
-# #                 self.stopalarmbutton.config(bg='grey')
-#                 pygame.mixer.music.stop()         
+                
+                
+            def startalarm(self):  
+                pygame.mixer.music.play(-1)
+                self.talable['text']='A trade has Occured'
+                self.talable['bg']='green'
+                self.stopalarmbutton.config(state='normal',bg='yellow')
+                
+                  
+            def endalarm(self):
+                self.stopalarmbutton.config(state='disable',bg='grey')
+                self.talable.config(text = 'No trades currently detected', bg='red')
+#                 self.stopalarmbutton.config(bg='grey')
+                pygame.mixer.music.stop()         
                 
                 
                 
@@ -295,7 +302,7 @@ class Ccex(Tkinter.Frame):
 #         button = Tkinter.Button(self, text='Go to the start page',
 #                                 command=lambda: controller.show_frame('StartPage'))
 
-        print 'Ccex'
+        
         omvar = Tkinter.StringVar()
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
         
@@ -332,7 +339,7 @@ class Ccex(Tkinter.Frame):
         olpbutton.grid(row=1, column=2, sticky='n')
       
                
-        strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: talert.startalarm())
+        strtbutton = Tkinter.Button(self, text='START MONITORING', command=lambda: slogmon.start())
         strtbutton.grid(row=1, column=3, sticky='n')
         
         strtbutton.config(state='disable')
@@ -347,7 +354,7 @@ class Ccex(Tkinter.Frame):
         stslabel.grid(row=3, column=3, columnspan=2, sticky='w')
         startlabelvar = Tkinter.StringVar()
         
-        stopalarmbutton = Tkinter.Button(self, text='Stop Alarm', command=lambda: talert.stopalarm())
+        stopalarmbutton = Tkinter.Button(self, text='Stop Alarm', command=lambda: slogmon.endalarm())
         stopalarmbutton.grid(row=3, column=4, sticky='e')
         
         stopalarmbutton.config(state='disable', bg='grey')
@@ -356,18 +363,7 @@ class Ccex(Tkinter.Frame):
         talable = Tkinter.Label(self, text = 'No trades currently detected', bg='red')
         talable.grid(row=3, column=5)
         
-        
-        
-        talert.set_env(stopalarmbutton)
-        
-#         talert.set(stopalarmbutton, talable, stslabel)
-        
-        
-       
-        print 'should be playing'
-        
-        
-        
+ 
         
         
 #         rfreshText = Tkinter.Text( self, width=2, height=5, wrap='word'  )
@@ -383,6 +379,8 @@ class Ccex(Tkinter.Frame):
         ltradelabel = Tkinter.Label(self, text = '')
         
         ltradelabel.grid(row=1, column=6, columnspan=2, sticky='n')
+        
+        slogmon.set(rfreshlabel, stopalarmbutton, talable, stslabel)
         
         
         
@@ -469,11 +467,11 @@ if __name__ == '__main__':
     browserconf = ordmonsel.ordmonsel()
     browser = browserconf.setupbrowser()
     logmon = ordmonsel.LogMon(browser, browserconf)
-    logmon.daemon = True
-#     slogmon = Startlogmon(browserconf)
+#     logmon.daemon = True
+    slogmon = Startlogmon(browser,browserconf)
     
-#     slogmon.daemon = True
-    talert = Talert(browserconf)
+    slogmon.daemon = True
+    
 #     f = mp3play.load('Air Horn.mp3')
 #     h = Hornalarm()
 #     f.play()
