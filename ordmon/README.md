@@ -15,3 +15,6 @@ You need to log in after clicking on the Open log Page button in order for it to
 you can open up a new tab and use the c-cex website normally but you don't want to work on the first tab the app opens
 any questions or comments you can contact me at: 
 noe@stakeco.in
+
+To fix.
+The app throws an exception when not in the correct website, this is a user error because it can only work on the trading log page but I can eliminate that as a bug.

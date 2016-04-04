@@ -14,18 +14,16 @@ noe@stakeco.in
 '''
 import Tkinter
 import ordmonsel
-#import mp3play
+
 import tkMessageBox
 import threading
 import time
 import pygame
-# from pygame.locals import *
+
 
 pygame.init()
-# alertsound = pygame.mixer.Sound('air horn.wav')
-#pygame.mixer.play(alertsound)
 
-# pygame.mixer.Sound.play(alertsound)
+
 alertmusic = pygame.mixer.music.load('air horn.wav')
 
 
@@ -35,50 +33,14 @@ msgvar=('Select the site you want to monitor trades on.', "After logging in the 
 cyclemsg=("You can still use the website you're if you open up a new tab and don't disturb the tab controlled by the app.","You can open up as many tabs as you want and use the broswer normally, as long as you don't distrub the app controlled tab,/n you will not effect the functioning of the Trade Monitor.")
 url = 'https://c-cex.com/?id=h&fr=&offset=&f=3'
 
-# class Hornalarm(threading.Thread):
-#     horn = mp3play.load('Air Horn.mp3')        
-#     def __init__(self):
-#         super(Hornalarm, self).__init__()
-#         self._stop = threading.Event()
-#         
-#     def set_sound(self, f):
-#         self.f = f
-#         
-#     def run(self):
-# #         self.f = f
-#         print 'run before loop'
-# #         while True:
-#         print 'after loop'
-#         global sound_thread
-#         sound_thread= threading.Thread(target=self.horn.play())
-#         sound_thread.start()
-#         time.sleep(10)
-#             
-#     def stop(self):
-#         self._stop.set()
-#             
-#     def stopped(self):        
-#         return self._stop.isSet()
 
-
-
-# def startPlaying():
-#     horn.play()
-    
-   
-
-
-# def playSound():
-#     global sound_thread 
-#     sound_thread = threading.Thread(target=startPlaying)
-#     sound_thread.start()
     
 
 class Gormonsel(Tkinter.Tk):
 
     
     
-# create Order Monitor Variable instance of StringVar for use with optionmenu widget     
+  
     
     
     def __init__(self, *args, **kwargs):
@@ -102,53 +64,23 @@ class Gormonsel(Tkinter.Tk):
             
         self.show_frame("StartPage")
     
-#     def callback(self, event):
-#         print "A C-cex trade has accurred", event.x, event.y    
-#     
-#     
+
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()
-#         frame.bind('<Button-1>', self.callback)
-        
-    
-        
-    
-    
 
-# class Talert():
-#     def tradeoccured(self):
-#         browserconf.alertstart()
-#         tkMessageBox.showinfo("Trade has Just Occured1" )
-#         print 'in the altert box'
 
-# class Talert(threading.Thread):
-#     def __init__(self):
-#         threading.Thread.__init__(self)
-#     
-#     def run(self):
-#         print 'before message'
-# #         pygame.mixer.music.play(-1)
-# #         tkMessageBox.showinfo("Trade has Just Occured" )
-#         self.controller.show_frame(Ccex)
-# #         pygame.mixer.music.stop()
-#         print 'after message'
+#
 
 class Startlogmon(threading.Thread):
-        #     tradealert = Talert()
-        #     tradealert.daemon = True
+        
             def __init__(self,brwoser, browserconf):
                 threading.Thread.__init__(self)
                 self.browserconf = browserconf
                 self.browser = browser
             
             def run(self):
-#                 self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
-# #         
-#                 self.stslabel.grid(row=3, column=3, columnspan=2)
-#                 self.startlabelvar.set("currently monitoring")
-#                 self.stslabel['text']='currently monitoring'
-#                 self.stslabel['bg']='green'
+#                 
                 orderstatustwo=None
                 while True:
                     
@@ -158,10 +90,7 @@ class Startlogmon(threading.Thread):
                         
                         if not orderstatusone == orderstatustwo:
                             self.startalarm()
-                            
- 
-                        
-                    
+  
                     self.rfreshlabel['text']='Refreshing in 60 seconds' 
                     time.sleep(60)
                     self.browser.refresh()
@@ -177,13 +106,7 @@ class Startlogmon(threading.Thread):
                     time.sleep(60)
                     self.browser.refresh()
                     time.sleep(5)
-                    
-                       
-                        
-                        
-                        
-                        
-        #                 self.tradealert.start()
+                 
             
             def set(self, rfreshlabel, stopalarmbutton, talable, stslabel):
                 self.rfreshlabel = rfreshlabel
@@ -203,7 +126,7 @@ class Startlogmon(threading.Thread):
             def endalarm(self):
                 self.stopalarmbutton.config(state='disable',bg='grey')
                 self.talable.config(text = 'No trades currently detected', bg='red')
-#                 self.stopalarmbutton.config(bg='grey')
+
                 pygame.mixer.music.stop()         
                 
                 
@@ -214,7 +137,7 @@ class Startlogmon(threading.Thread):
     
         
 class StartPage(Tkinter.Frame):
-#     playSound()
+
     
         
     
@@ -224,14 +147,10 @@ class StartPage(Tkinter.Frame):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
         label = Tkinter.Label(self, text = 'Gui Order Monitor using Selenium and Chrome Driver')
-#         label.pack(side='bottom', fill='x', pady=10)
+
         label.grid(row=0, column=4, columnspan=2)
         
-#         button1 = Tkinter.Button(self, text='C-Cex',
-#                                  command=lambda: controller.show_frame('Ccex'))
-# 
-#         button2 = Tkinter.Button(self, text='Bittrex',
-#                                  command=lambda: ffet('Future Update'))
+
         omvar = Tkinter.StringVar()
         omvar.set('Trade Site')
         
@@ -239,9 +158,7 @@ class StartPage(Tkinter.Frame):
         nameMenu = Tkinter.OptionMenu(self, omvar, ())
         nameMenu.grid(row=0, column=0, columnspan=2, sticky='w')
         nameMenu.config(width=20)
-#         nameMenu.grid_columnconfigure(1, weight=1)
-#        nameMenu.pack()
-#         nameMenu.place(anchor='nw')
+#     
         menu = nameMenu.children['menu']
         menu.delete(0, "end")
         
@@ -252,20 +169,15 @@ class StartPage(Tkinter.Frame):
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
             
             
-#         Message Widget
-
-        
-#         mvar = Tkinter.StringVar()
-#         mvar.set('first value')
-#         App output goes here
+# 
         MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
-#         mvar.text.set('testing'
+#  
         
         MText.insert('1.0', "Don't forget to log in if you haven't already: Click open Log Page button.")
-#         MText.delete('0.0', 'end')
+#     
         MText.config(state='disabled')
         MText.grid(row=1, column=0, sticky='w')
-#         notes to user goes here
+#       
         
         UMText = Tkinter.Text( self, width=40, height=10, wrap='word'  )
       
@@ -274,27 +186,7 @@ class StartPage(Tkinter.Frame):
         UMText.config(state='disabled')
         UMText.grid(row=9, column=0, sticky='w')
         
-        
-#         f.play()
-        
-#         olpbutton = Tkinter.Button(self, text='Open Log Page')
-#         olpbutton.grid(row=1, column=2, sticky='n')
-#         
-#         scpbutton = Tkinter.Button(self, text='Save Cookies')
-#         scpbutton.grid(row=2, column=2, sticky='n')
-        
-#         MText.config(state='normal')
-        
-#         MText.insert('0.0', 'here is the second message')
-#         MText.config(state='disabled')
-        
-        
-#         mvar.set('second value')
-        
- 
-        
-#         button1.pack()
-#         button2.pack()
+      
          
     
    
@@ -307,9 +199,7 @@ class Ccex(Tkinter.Frame):
         self.controller = controller
         label = Tkinter.Label(self, text = 'Gui Order Monitory using Selenium and Chrome Driver')
         label.grid(row=0, column=4, columnspan=2)
-#         label.pack(side='top', fill='x', pady=10)
-#         button = Tkinter.Button(self, text='Go to the start page',
-#                                 command=lambda: controller.show_frame('StartPage'))
+#
 
         
         omvar = Tkinter.StringVar()
@@ -322,7 +212,7 @@ class Ccex(Tkinter.Frame):
         menu.delete(0, "end")
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
-#         Top widgets    
+ 
         MText = Tkinter.Text( self, width=40, height=20, wrap='word' )
 
         
@@ -330,11 +220,7 @@ class Ccex(Tkinter.Frame):
 
         MText.config(state='disabled')
         MText.grid(row=1, column=0, sticky='w')
-        
-        
-        
-#         notes to user goes here
-#         
+     
         UMText = Tkinter.Text( self, width=40, height=11, wrap='word'  )
       
         
@@ -355,9 +241,7 @@ class Ccex(Tkinter.Frame):
         
         
         
-#         scpbutton = Tkinter.Button(self, text='Save Cookies', command=lambda: )
-        
-#         scpbutton.grid(row=3, column=2, sticky='n')
+
         
         stslabel = Tkinter.Label(self, text = 'Not currently Monitoring', bg='red')
         stslabel.grid(row=3, column=3, columnspan=2, sticky='w')
@@ -367,21 +251,11 @@ class Ccex(Tkinter.Frame):
         stopalarmbutton.grid(row=3, column=4, sticky='e')
         
         stopalarmbutton.config(state='disable', bg='grey')
-#         stopalarmbutton.config(color='grey')
+
         
         talable = Tkinter.Label(self, text = 'No trades currently detected', bg='red')
         talable.grid(row=3, column=5)
-        
  
-        
-        
-#         rfreshText = Tkinter.Text( self, width=2, height=5, wrap='word'  )
-#        
-#          
-#         rfreshText.insert('1.0', 'refreshing in ' + ' seconds')
-#         rfreshText.config(state='disabled')
-#         UMText.grid(row=2, column=4, sticky='w')
-
         rfreshlabel = Tkinter.Label(self)        
         rfreshlabel.grid(row=1, column=4, columnspan=2, sticky='n')
         
@@ -390,41 +264,13 @@ class Ccex(Tkinter.Frame):
         ltradelabel.grid(row=1, column=6, columnspan=2, sticky='n')
         
         slogmon.set(rfreshlabel, stopalarmbutton, talable, stslabel)
-        
-        
-        
-#         tradealtert.tradeoccured()
-#         browserconf.alertstop()
-#         h.start()
-#         time.sleep(60)
-#         pygame.mixer.music.play(-1)
-#         tkMessageBox.showinfo("Trade has Just Occured1" )
-#         pygame.mixer.music.stop()
-#         h.stopped()
-        
-        
+  
         logmon.set_strtbutton(strtbutton, rfreshlabel, ltradelabel, stslabel)
-        
-     
-     
-    
+ 
     
     def amessage(self):
         tkMessageBox.showinfo("Trade has Just Occured" )
-    
-    
-                
-        
-        
-        
 
-            
-        
-        
-        
-        
-        
-#         button.pack()
         
 class Bittrex(Tkinter.Frame):
     
@@ -445,20 +291,14 @@ class Bittrex(Tkinter.Frame):
         for name in tsnames:
             menu.add_command(label=name, command=lambda v=name: controller.show_frame(v.replace('-','')))
         
-        
-#         label.pack(side='top', fill='x', pady=10)
-#         button = Tkinter.Button(self, text='Go to the start page',
-#                                 command=lambda: controller.show_frame('StartPage'))
-#         
-#         
-#         button.pack()
+    
 
 class AlertPage(Tkinter.Frame):
      
     def __init__(self, parent, controller):
         Tkinter.Frame.__init__(self, parent)
         self.controller = controller
-#         label = Tkinter.Label(self, text = 'A trade has Occured')
+
         Abutton = Tkinter.Button(self, text='A trade has occured', command=lambda: self.killalert())
         Abutton.pack()
          
@@ -476,40 +316,18 @@ if __name__ == '__main__':
     browserconf = ordmonsel.ordmonsel()
     browser = browserconf.setupbrowser()
     logmon = ordmonsel.LogMon(browser, browserconf)
-#     logmon.daemon = True
+
     slogmon = Startlogmon(browser,browserconf)
     
     slogmon.daemon = True
     
-#     f = mp3play.load('Air Horn.mp3')
-#     h = Hornalarm()
-#     f.play()
-#     h.set_sound(f)
-    
-#     tradealtert = Talert()
-    
+     
     
     app = Gormonsel()
     
-#     f.play()
-#     time.sleep(60)
+
     app.mainloop()
     
     
-    
-#     root = Tkinter.Tk()
-#     mylabel = Tkinter.Label(root, text='I am a label widget')
-#     mybutton = Tkinter.Button(root, text='I am a button')
-#     
-#     myplabel = Tkinter.Label(parent, text='Gui Order Monitor Using Selenium and WebDriver')
-#     mypbutton = Tkinter.Button(parent, text='Open Log Page')
-#     myEntry(parent, width=30)
-#     myOptionMenu = OptionMenu(parent, var, 'C-Cex', 'Future Update') Scrollbar(parent, orient=VERTICAL, command=mytext.yview)
-#     myMessageWiget = Tkinter.Message(parent, "Don't forget to Login to the site if you haven't already.")
-#     MyScaleWidget = Tkinter.Scale(parent, 'minumum 60 seconds max 4hours on site refresh') 
-#     
-#     mylabel.pack()
-#     mybutton.pack()
-#     
-#     root.mainloop()
+  
     pass

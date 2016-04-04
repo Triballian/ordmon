@@ -48,29 +48,17 @@ class LogMon():
         
     def set_orderstatus(self, _orderstatustwo=None):
         self.orderstatustwo = _orderstatustwo
-        
-     
+  
      
         
     def getlog(self):
         
         self.strtbutton.config(state='disable')
-        
-        
-           
-#         self.stslabel = Tkinter.Label(self, text = 'currently monitoring', bg='green')
-#         
-#         self.stslabel.grid(row=3, column=3, columnspan=2)
-#         self.startlabelvar.set("currently monitoring")
+ 
         self.stslabel['text']='currently monitoring'
         self.stslabel['bg']='green'
         
-        
-            
-            
-
-        
-        
+  
          
         self.browser.refresh()
         time.sleep(5)
@@ -78,43 +66,6 @@ class LogMon():
         self.ltradelabel['text']=str('Last trade accured at ' + str(re.findall('\d{4}\-\d{2}\-\d{2}\s\d{2}\:\d{2}\:\d{2}',orderstatus)).replace('u',''))
         
         return orderstatus
-#         oderstatusone = 'wrong'
-#         if self.orderstatustwo:
-#             if not orderstatusone == self.orderstatustwo:
-#                 toccurred = True
-#                 
-#                 print 'should be returning a true form 1st ' 
-#                 
-#                 print "an order has bee executed"
-#                 return toccurred, self.orderstatustwo
-#                 
-#         
-#         
-#                
-#         
-#         self.rfreshlabel['text']='Refreshing in 60 seconds' 
-#         time.sleep(60)
-#         self.rfreshlabel['text']=''
-#         
-#         self.browser.refresh()
-#         time.sleep(5)
-#         
-#         self.orderstatustwo = self.browserconf.orderstatus('//*[@id="flog"]/table/tbody/tr[2]/td[1]', '//*[@id="flog"]/table/tbody/tr[2]/td[5]', self.browser, self.browserconf)
-#         orderstatusone = 'wrong'
-#         if not orderstatusone == self.orderstatustwo:
-#             toccurred = True
-#             
-#             print "an order has bee executed"
-#             print 'should be returning a true from second ' 
-#             return toccurred, self.orderstatustwo
-            
-        
-       
-             
-            
-        
-        
-        
 
 class ordmonsel:
     
@@ -160,7 +111,7 @@ class ordmonsel:
         
         
             winsound.PlaySound('SystemAsterisk', winsound.SND_ALIAS | winsound.SND_ASYNC | winsound.SND_LOOP )
-#             raw_input('Press any key:')
+
             
             ostop = 'stop'
             winsound.PlaySound('SystemAsterisk', winsound.SND_PURGE)
@@ -181,47 +132,4 @@ class ordmonsel:
         _browser.get(url)
         _browserconf.loadcookies(_browser)
         _browser.get(url)
-            
-            
-            
-        
-        
-        
-        
-
-
-
-
-# if __name__ == '__main__':
-#     
-#         
-# 
-#     browserconf = ordmonsel()
-#     
-#     
-#       
-#     browser = browserconf.setupbrowser()
-#     
-#     
-# 
-#     browser.get(url)
-#     print 'loding page'
-#     print 'Login to C-Cex if you haven not logged in for awhile. Otherwise order page will load automatically'
-#     time.sleep(10)
-#     browserconf.loadcookies()
-#     browser.get(url)
-# 
-#     
-#     time.sleep(30)
-#     
-# 
-#     browserconf.savecookies(browser)
-#     print 'saving cookies'
-# 
-#     orderstatustwo=None
-#     
-#         
-#         
-#     
-#      
-#     pass
+ 
