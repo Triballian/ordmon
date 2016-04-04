@@ -26,7 +26,7 @@ from selenium import webdriver
 import time
 import os
 import winsound
-import threading
+
 import re
 
 
