@@ -5,6 +5,7 @@ Monitors orders on c-cex
 # cxfreexenviron
 something I use to convert my scripts to executables
 >>>>>>> e605c2d5fc24ab4716a4a59443d10c76e8a7cbd8
+<<<<<<< HEAD
 Certain sites do not like being scraped, to get around this python needs to pretend to be a browser.
 You need to download the program chrome driver http://chromedriver.storage.googleapis.com/index.html
 I use 2.9 win32
@@ -18,3 +19,5 @@ noe@stakeco.in
 
 To fix.
 The app throws an exception when not in the correct website, this is a user error because it can only work on the trading log page but I can eliminate that as a bug.
+=======
+>>>>>>> c235c59c507de31007090146cadf6c66ed7f4a03
